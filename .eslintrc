@@ -11,9 +11,7 @@
     "jsx": true
   },
   "globals": {},
-  "plugins": [
-    "react"
-  ],
+  "plugins": [],
   "rules": {
     // Possible Errors
     "comma-dangle": [
