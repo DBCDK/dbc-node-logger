@@ -1,6 +1,6 @@
 'use strict';
 
-import winston from 'winston';
+import Winston from 'winston';
 import expressWinston from 'express-winston';
 import {Syslog} from 'winston-syslog'; // eslint-disable-line no-unused-vars
 
@@ -8,7 +8,7 @@ import os from 'os';
 
 const PRODUCTION = (process.env.NODE_ENV === 'production'); // eslint-disable-line no-process-env
 
-let logger = null;
+let winston = null;
 
 /**
  * Logs the given parameters
@@ -22,28 +22,32 @@ let logger = null;
  */
 export function doLog(level, message, data = null) {
   const dataToLog = (data) ? {data: data} : null;
-  logger.log(level, message, dataToLog);
+  if (!level || !message) {
+    throw new Error('Level or message is undefined - both should be defined - i.e. logger.log(\'level\', \'message\');');
+  }
+
+  winston.log(level, message, dataToLog);
 }
 
 function getTransports(config) {
   return {
-    console: new winston.transports.Console({
+    console: new Winston.transports.Console({
       silent: PRODUCTION,
       level: 'debug',
       colorize: true,
       prettyPrint: true,
-      handleExceptions: true
+      handleExceptions: config.handleExceptions || false
     }),
 
-    syslog: new winston.transports.Syslog({
+    syslog: new Winston.transports.Syslog({
       silent: !PRODUCTION,
       protocol: 'udp4',
       localhost: os.hostname(),
-      app_name: config.appName,
+      app_name: config.appName || 'my_app',
       json: true,
       timestamp: true,
       level: 'emerg',
-      handleExceptions: true
+      handleExceptions: config.handleExceptions || false
     })
   };
 }
@@ -68,11 +72,11 @@ function expressLoggers(transports) {
  */
 export function configLogger(config) {
   const transports = getTransports(config);
-  logger = new winston.Logger({
+  winston = new Winston.Logger({
     transports: [transports.console, transports.syslog],
     exitOnError: false
   });
 
-  logger.setLevels(winston.config.syslog.levels); // see level at https://github.com/winstonjs/winston-syslog#log-levels
+  winston.setLevels(Winston.config.syslog.levels); // see level at https://github.com/winstonjs/winston-syslog#log-levels
   return expressLoggers(transports);
 }

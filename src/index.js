@@ -10,7 +10,7 @@ import * as logger from './lib/logger.js';
 let expressLoggers = null;
 
 export default class Logger {
-  constructor(config) {
+  constructor(config = {}) {
     expressLoggers = logger.configLogger(config);
   }
 
