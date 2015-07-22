@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * @file
+ * Custom logger to be used on DBC hosted node applications.
+ */
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
@@ -10,11 +15,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-/**
- * @file
- * Custom logger to be used on DBC hosted node applications.
- */
-
 var _libLoggerJs = require('./lib/logger.js');
 
 var logger = _interopRequireWildcard(_libLoggerJs);
@@ -22,7 +22,9 @@ var logger = _interopRequireWildcard(_libLoggerJs);
 var expressLoggers = null;
 
 var Logger = (function () {
-  function Logger(config) {
+  function Logger() {
+    var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
     _classCallCheck(this, Logger);
 
     expressLoggers = logger.configLogger(config);

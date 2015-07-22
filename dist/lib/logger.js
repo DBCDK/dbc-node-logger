@@ -26,7 +26,7 @@ var _os2 = _interopRequireDefault(_os);
 
 var PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
-var logger = null;
+var winston = null;
 
 /**
  * Logs the given parameters
@@ -43,7 +43,11 @@ function doLog(level, message) {
   var data = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
 
   var dataToLog = data ? { data: data } : null;
-  logger.log(level, message, dataToLog);
+  if (!level || !message) {
+    throw new Error('Level or message is undefined - both should be defined - i.e. logger.log(\'level\', \'message\');');
+  }
+
+  winston.log(level, message, dataToLog);
 }
 
 function getTransports(config) {
@@ -53,18 +57,18 @@ function getTransports(config) {
       level: 'debug',
       colorize: true,
       prettyPrint: true,
-      handleExceptions: true
+      handleExceptions: config.handleExceptions || false
     }),
 
     syslog: new _winston2['default'].transports.Syslog({
       silent: !PRODUCTION,
       protocol: 'udp4',
       localhost: _os2['default'].hostname(),
-      app_name: config.appName,
+      app_name: config.appName || 'my_app',
       json: true,
       timestamp: true,
       level: 'emerg',
-      handleExceptions: true
+      handleExceptions: config.handleExceptions || false
     })
   };
 }
@@ -90,11 +94,11 @@ function expressLoggers(transports) {
 
 function configLogger(config) {
   var transports = getTransports(config);
-  logger = new _winston2['default'].Logger({
+  winston = new _winston2['default'].Logger({
     transports: [transports.console, transports.syslog],
     exitOnError: false
   });
 
-  logger.setLevels(_winston2['default'].config.syslog.levels); // see level at https://github.com/winstonjs/winston-syslog#log-levels
+  winston.setLevels(_winston2['default'].config.syslog.levels); // see level at https://github.com/winstonjs/winston-syslog#log-levels
   return expressLoggers(transports);
 }
