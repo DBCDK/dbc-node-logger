@@ -14,28 +14,28 @@ export default class Logger {
     expressLoggers = logger.configLogger(config);
   }
 
-  log(level, message, data = null) {
-    logger.doLog(level, message, data);
+  log(level, messge, data = null) {
+    logger.doLog(level, messge, data);
   }
 
-  debug(message, data = null) {
-    logger.doLog('debug', message, data);
+  debug(messge, data = null) {
+    logger.doLog('debug', messge, data);
   }
 
-  info(message, data = null) {
-    logger.doLog('info', message, data);
+  info(messge, data = null) {
+    logger.doLog('info', messge, data);
   }
 
-  notice(message, data = null) {
-    logger.doLog('notice', message, data);
+  notice(messge, data = null) {
+    logger.doLog('notice', messge, data);
   }
 
-  warning(message, data = null) {
-    logger.doLog('warning', message, data);
+  warning(messge, data = null) {
+    logger.doLog('warning', messge, data);
   }
 
-  error(message, data = null) {
-    logger.doLog('error', message, data);
+  error(messge, data = null) {
+    logger.doLog('error', messge, data);
   }
 
   getExpressLoggers() {
