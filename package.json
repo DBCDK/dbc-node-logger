@@ -1,6 +1,6 @@
 {
   "name": "dbc-node-logger",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "DBC logger module that ensures logging to central DBC syslog and New Relic",
   "main": "dist/index.js",
   "scripts": {
@@ -17,6 +17,13 @@
   "keywords": [
     "DBC"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DBCDK/dbc-node-logger"
+  },
+  "bugs": {
+    "url": "https://github.com/DBCDK/dbc-node-logger/issues"
+  },
   "author": "DBC A/S",
   "license": "ISC",
   "dependencies": {
@@ -31,7 +38,6 @@
   },
   "devDependencies": {
     "babel-eslint": "^3.1.26",
-    "chai": "^3.2.0",
     "eslint": "^0.24.1",
     "mocha": "^2.2.5",
     "mocha-jenkins-reporter": "^0.1.9",

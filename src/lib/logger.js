@@ -33,7 +33,7 @@ function getTransports(config) {
   return {
     console: new Winston.transports.Console({
       silent: PRODUCTION,
-      level: 'debug',
+      level: 'error',
       colorize: true,
       prettyPrint: true,
       handleExceptions: config.handleExceptions || false
