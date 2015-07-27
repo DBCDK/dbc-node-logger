@@ -32,45 +32,45 @@ var Logger = (function () {
 
   _createClass(Logger, [{
     key: 'log',
-    value: function log(level, message) {
+    value: function log(level, messge) {
       var data = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
 
-      logger.doLog(level, message, data);
+      logger.doLog(level, messge, data);
     }
   }, {
     key: 'debug',
-    value: function debug(message) {
+    value: function debug(messge) {
       var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
-      logger.doLog('debug', message, data);
+      logger.doLog('debug', messge, data);
     }
   }, {
     key: 'info',
-    value: function info(message) {
+    value: function info(messge) {
       var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
-      logger.doLog('info', message, data);
+      logger.doLog('info', messge, data);
     }
   }, {
     key: 'notice',
-    value: function notice(message) {
+    value: function notice(messge) {
       var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
-      logger.doLog('notice', message, data);
+      logger.doLog('notice', messge, data);
     }
   }, {
     key: 'warning',
-    value: function warning(message) {
+    value: function warning(messge) {
       var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
-      logger.doLog('warning', message, data);
+      logger.doLog('warning', messge, data);
     }
   }, {
     key: 'error',
-    value: function error(message) {
+    value: function error(messge) {
       var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
-      logger.doLog('error', message, data);
+      logger.doLog('error', messge, data);
     }
   }, {
     key: 'getExpressLoggers',
