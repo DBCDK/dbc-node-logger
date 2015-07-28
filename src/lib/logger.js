@@ -43,8 +43,8 @@ function getTransports(config) {
       silent: !PRODUCTION,
       protocol: 'udp4',
       localhost: os.hostname(),
-      app_name: config.appName || 'my_app',
-      json: true,
+      app_name: config.app_name || 'my_app',
+      json: false,
       timestamp: true,
       level: 'emerg',
       handleExceptions: config.handleExceptions || false
