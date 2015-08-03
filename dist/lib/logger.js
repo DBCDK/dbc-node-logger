@@ -55,6 +55,7 @@ function getTransports(config) {
     console: new _winston2['default'].transports.Console({
       silent: PRODUCTION,
       level: 'error',
+      timestamp: true,
       colorize: true,
       prettyPrint: true,
       handleExceptions: config.handleExceptions || false
