@@ -56,9 +56,11 @@ function getTransports(config) {
       silent: PRODUCTION,
       level: 'error',
       timestamp: true,
+      app_name: config.app_name || 'my_app',
       colorize: true,
       prettyPrint: true,
-      handleExceptions: config.handleExceptions || false
+      handleExceptions: config.handleExceptions || false,
+      humanReadableUnhandledException: true
     }),
 
     syslog: new _winston2['default'].transports.Syslog({
