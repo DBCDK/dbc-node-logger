@@ -24,24 +24,24 @@
   "bugs": {
     "url": "https://github.com/DBCDK/dbc-node-logger/issues"
   },
-  "author": "DBC A/S",
-  "license": "ISC",
+  "author": "dbcdk",
+  "license": "GNU GPL v3",
   "dependencies": {
-    "babel": "^5.6.23",
-    "babel-core": "^5.7.4",
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.23",
     "babel-loader": "^5.3.2",
-    "express-winston": "^0.3.1",
+    "express-winston": "^0.4.1",
     "node-libs-browser": "^0.5.2",
-    "webpack": "^1.10.1",
+    "webpack": "^1.12.0",
     "winston": "^1.0.1",
-    "winston-syslog": "^1.1.0"
+    "winston-syslog": "^1.1.1"
   },
   "devDependencies": {
-    "babel-eslint": "^4.0.5",
+    "babel-eslint": "^4.1.0",
     "chai": "^3.2.0",
-    "eslint": "^1.0.0",
+    "eslint": "^1.2.1",
     "mocha": "^2.2.5",
     "mocha-jenkins-reporter": "^0.1.9",
-    "sinon": "^1.15.4"
+    "sinon": "^1.16.1"
   }
 }
