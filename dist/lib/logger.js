@@ -44,46 +44,58 @@ function doLog(level, message) {
 
   var dataToLog = data ? { data: data } : null;
   if (!level || !message) {
-    throw new Error('Level or message is undefined - both should be defined - i.e. logger.log(\'level\', \'message\');');
+    winston.log('error', 'Level or message is undefined - both should be defined - i.e. logger.log(\'info\', \'MESSAGE\');');
+  } else {
+    winston.log(level, message, dataToLog);
   }
-
-  winston.log(level, message, dataToLog);
 }
 
 function getTransports(config) {
+  var appName = config.app_name || 'my_app';
   return {
     console: new _winston2['default'].transports.Console({
-      silent: PRODUCTION,
-      level: 'error',
+      silent: false,
+      level: 'debug',
       timestamp: true,
-      app_name: config.app_name || 'my_app',
+      app_name: appName,
       colorize: true,
       prettyPrint: true,
-      handleExceptions: config.handleExceptions || false,
-      humanReadableUnhandledException: true
+      humanReadableUnhandledException: true,
+      handleExceptions: true
+    }),
+
+    file: new _winston2['default'].transports.File({
+      filename: './log.log',
+      maxFiles: 1,
+      level: 'emerg',
+      silent: PRODUCTION,
+      timestamp: true,
+      colorize: true,
+      json: false,
+      prettyPrint: true,
+      tailable: true,
+      handleExceptions: true
     }),
 
     syslog: new _winston2['default'].transports.Syslog({
-      silent: !PRODUCTION,
+      silent: false,
       protocol: 'udp4',
       localhost: _os2['default'].hostname(),
-      app_name: config.app_name || 'my_app',
+      app_name: appName,
       json: true,
       timestamp: true,
-      level: 'emerg',
-      handleExceptions: config.handleExceptions || false
+      handleExceptions: true
     })
   };
 }
 
-function expressLoggers(transports) {
+function expressLoggers() {
   return {
     logger: _expressWinston2['default'].logger({
-      transports: [transports.syslog]
+      winstonInstance: winston
     }),
     errorLogger: _expressWinston2['default'].errorLogger({
-      transports: [transports.syslog, transports.console],
-      exitOnError: false
+      winstonInstance: winston
     })
   };
 }
@@ -98,10 +110,14 @@ function expressLoggers(transports) {
 function configLogger(config) {
   var transports = getTransports(config);
   winston = new _winston2['default'].Logger({
-    transports: [transports.console, transports.syslog],
+    transports: [transports.console, transports.file, transports.syslog],
     exitOnError: false
   });
 
   winston.setLevels(_winston2['default'].config.syslog.levels); // see level at https://github.com/winstonjs/winston-syslog#log-levels
-  return expressLoggers(transports);
+
+  if (PRODUCTION) {
+    winston.debug('This application is started with the PRODUCTION flag set, meaning that most logging will go to syslog.');
+  }
+  return expressLoggers();
 }
