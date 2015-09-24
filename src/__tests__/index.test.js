@@ -5,21 +5,28 @@
  * Testing the src/index.js file
  */
 
-import {expect, assert} from 'chai';
+import {assert} from 'chai';
 import Logger from '../index.js';
 import sinon from 'sinon';
-import * as loggerApi from '../lib/logger.js';
 
 describe('Test Logger class', () => {
 
+  let sandbox;
   let logger = null;
-  const doLogSpy = sinon.spy(loggerApi, 'doLog');
+  let loggerMock;
 
   beforeEach(() => {
+    sandbox = sinon.sandbox.create();
     logger = new Logger({app_name: 'test_app'});
+    loggerMock = sandbox.mock(logger);
   });
 
-  it('Logger can be instatiated without a config object', () => {
+  afterEach(() => {
+    logger = null;
+    sandbox.restore();
+  });
+
+  it('Logger can be instatiated wxithout a config object', () => {
     const myLogger = new Logger();
     assert.isObject(myLogger, 'myLogger is an object');
   });
@@ -29,9 +36,9 @@ describe('Test Logger class', () => {
   });
 
   it('Test .log method', () => {
-    expect(logger.log).to.throw(Error);
+    const expect = loggerMock.expects('log');
     logger.log('a', 'b');
-    assert.isTrue(doLogSpy.called, 'doLog method in lib/logger.js was called');
+    assert.isTrue(expect.calledOnce);
   });
 
   it('Ensure .debug method is defined', () => {
@@ -39,9 +46,9 @@ describe('Test Logger class', () => {
   });
 
   it('Test .debug method', () => {
-    expect(logger.debug).to.throw(Error);
+    const expect = loggerMock.expects('debug');
     logger.debug('message');
-    assert.isTrue(doLogSpy.called, 'doLog method in lib/logger.js was called');
+    assert.isTrue(expect.calledOnce);
   });
 
   it('Ensure .info method is defined', () => {
@@ -49,9 +56,9 @@ describe('Test Logger class', () => {
   });
 
   it('Test .info method', () => {
-    expect(logger.info).to.throw(Error);
+    const expect = loggerMock.expects('info');
     logger.info('message');
-    assert.isTrue(doLogSpy.called, 'doLog method in lib/logger.js was called');
+    assert.isTrue(expect.calledOnce);
   });
 
   it('Ensure .notice method is defined', () => {
@@ -59,9 +66,9 @@ describe('Test Logger class', () => {
   });
 
   it('Test .notice method', () => {
-    expect(logger.notice).to.throw(Error);
+    const expect = loggerMock.expects('notice');
     logger.notice('message');
-    assert.isTrue(doLogSpy.called, 'doLog method in lib/logger.js was called');
+    assert.isTrue(expect.calledOnce);
   });
 
   it('Ensure .warning method is defined', () => {
@@ -69,9 +76,9 @@ describe('Test Logger class', () => {
   });
 
   it('Test .warning method', () => {
-    expect(logger.warning).to.throw(Error);
+    const expect = loggerMock.expects('warning');
     logger.warning('message');
-    assert.isTrue(doLogSpy.called, 'doLog method in lib/logger.js was called');
+    assert.isTrue(expect.calledOnce);
   });
 
   it('Ensure .error method is defined', () => {
@@ -79,9 +86,9 @@ describe('Test Logger class', () => {
   });
 
   it('Test .error method', () => {
-    expect(logger.error).to.throw(Error);
+    const expect = loggerMock.expects('error');
     logger.error('message');
-    assert.isTrue(doLogSpy.called, 'doLog method in lib/logger.js was called');
+    assert.isTrue(expect.calledOnce);
   });
 
   it('Ensure .getExpressLoggers method is defined', () => {
