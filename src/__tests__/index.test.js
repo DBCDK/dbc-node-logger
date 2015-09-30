@@ -26,7 +26,7 @@ describe('Test Logger class', () => {
     sandbox.restore();
   });
 
-  it('Logger can be instatiated wxithout a config object', () => {
+  it('Logger can be instatiated without a config object', () => {
     const myLogger = new Logger();
     assert.isObject(myLogger, 'myLogger is an object');
   });
