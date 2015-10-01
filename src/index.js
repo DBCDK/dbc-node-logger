@@ -8,10 +8,12 @@
 import * as logger from './lib/logger.js';
 
 let expressLoggers = null;
+let isInitialized = false;
 
 export default class Logger {
   constructor(config = {}) {
     expressLoggers = logger.configLogger(config);
+    isInitialized = true;
   }
 
   log(level, message, data = null) {
@@ -40,5 +42,17 @@ export default class Logger {
 
   getExpressLoggers() {
     return expressLoggers;
+  }
+}
+
+export function debug(message, data = null) {
+  if (isInitialized) {
+    logger.doLog('debug', message, data);
+  }
+}
+
+export function error(message, data = null) {
+  if (isInitialized) {
+    logger.doLog('error', message, data);
   }
 }
