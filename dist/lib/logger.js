@@ -66,7 +66,8 @@ function getTransports(config) {
 
     file: new _winston2['default'].transports.File({
       filename: './log.log',
-      maxFiles: 1,
+      maxFiles: 10,
+      maxsize: 300000000,
       level: 'emerg',
       silent: PRODUCTION,
       timestamp: true,
@@ -74,7 +75,8 @@ function getTransports(config) {
       json: false,
       prettyPrint: true,
       tailable: true,
-      handleExceptions: true
+      handleExceptions: true,
+      zippedArchive: true
     }),
 
     syslog: new _winston2['default'].transports.Syslog({
