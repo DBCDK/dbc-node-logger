@@ -46,7 +46,8 @@ function getTransports(config) {
 
     file: new Winston.transports.File({
       filename: './log.log',
-      maxFiles: 1,
+      maxFiles: 10,
+      maxsize: 300000000,
       level: 'emerg',
       silent: PRODUCTION,
       timestamp: true,
@@ -54,7 +55,8 @@ function getTransports(config) {
       json: false,
       prettyPrint: true,
       tailable: true,
-      handleExceptions: true
+      handleExceptions: true,
+      zippedArchive: true
     }),
 
     syslog: new Winston.transports.Syslog({
