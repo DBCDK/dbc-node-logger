@@ -1,6 +1,6 @@
 {
   "name": "dbc-node-logger",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "DBC logger module that ensures logging to central DBC syslog and New Relic",
   "main": "dist/index.js",
   "scripts": {
