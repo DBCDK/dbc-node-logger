@@ -20,11 +20,17 @@ var _winstonSyslog = require('winston-syslog');
 
 // eslint-disable-line no-unused-vars
 
+var _winstonKafkaTransport = require('winston-kafka-transport');
+
+var _winstonKafkaTransport2 = _interopRequireDefault(_winstonKafkaTransport);
+
 var _os = require('os');
 
 var _os2 = _interopRequireDefault(_os);
 
 var PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+var KAFKA_TOPIC = process.env.KAFKA_TOPIC || null; // eslint-disable-line no-process-env
+var KAFKA_HOST = process.env.KAFKA_HOST || null; // eslint-disable-line no-process-env
 
 var winston = null;
 
@@ -52,43 +58,51 @@ function doLog(level, message) {
 
 function getTransports(config) {
   var appName = config.app_name || 'my_app';
-  return {
-    console: new _winston2['default'].transports.Console({
-      silent: false,
-      level: 'debug',
-      timestamp: true,
-      app_name: appName,
-      colorize: true,
-      prettyPrint: true,
-      humanReadableUnhandledException: true,
-      handleExceptions: true
-    }),
 
-    file: new _winston2['default'].transports.File({
-      filename: './log.log',
-      maxFiles: 10,
-      maxsize: 300000000,
-      level: 'emerg',
-      silent: PRODUCTION,
-      timestamp: true,
-      colorize: true,
-      json: false,
-      prettyPrint: true,
-      tailable: true,
-      handleExceptions: true,
-      zippedArchive: true
-    }),
+  var transports = [new _winston2['default'].transports.Console({
+    silent: false,
+    level: 'debug',
+    timestamp: true,
+    app_name: appName,
+    colorize: true,
+    prettyPrint: true,
+    humanReadableUnhandledException: true,
+    handleExceptions: true
+  }), new _winston2['default'].transports.File({
+    filename: './log.log',
+    maxFiles: 10,
+    maxsize: 300000000,
+    level: 'emerg',
+    silent: PRODUCTION,
+    timestamp: true,
+    colorize: true,
+    json: false,
+    prettyPrint: true,
+    tailable: true,
+    handleExceptions: true,
+    zippedArchive: true
+  }), new _winston2['default'].transports.Syslog({
+    silent: false,
+    protocol: 'udp4',
+    localhost: _os2['default'].hostname(),
+    app_name: appName,
+    json: true,
+    timestamp: true,
+    handleExceptions: true
+  })];
 
-    syslog: new _winston2['default'].transports.Syslog({
-      silent: false,
-      protocol: 'udp4',
-      localhost: _os2['default'].hostname(),
-      app_name: appName,
-      json: true,
-      timestamp: true,
-      handleExceptions: true
-    })
-  };
+  if (KAFKA_TOPIC && KAFKA_HOST) {
+    _winston2['default'].transports.Kafka = _winstonKafkaTransport2['default'];
+    var kafka = new _winston2['default'].transports.Kafka({
+      topic: KAFKA_TOPIC,
+      level: 'error',
+      connectionString: KAFKA_HOST
+    });
+
+    transports.push(kafka);
+  }
+
+  return transports;
 }
 
 function expressLoggers() {
@@ -112,7 +126,7 @@ function expressLoggers() {
 function configLogger(config) {
   var transports = getTransports(config);
   winston = new _winston2['default'].Logger({
-    transports: [transports.console, transports.file, transports.syslog],
+    transports: transports,
     exitOnError: false
   });
 
