@@ -25,11 +25,12 @@ Several different transports are used by the logger:
 ## Environment Varibles
 The following environment variables are defined in this module.
 
-- __KAFKA_TOPIC__
+- __KAFKA_TOPIC__  
 This defines which topic in Kafka the log messages should be associated with 
 
-- __KAFKA_HOST__
-String that defines the Zookeeper connectionstring. Should be defined as `host:port`. see [winston-kafka-transport](https://www.npmjs.com/package/winston-kafka-transport)
+- __KAFKA_HOST__  
+String that defines the Zookeeper connectionstring. Should be defined as `host:port`.  
+see [winston-kafka-transport](https://www.npmjs.com/package/winston-kafka-transport)
 
 ## Documentation
 The Logger can be instantiated with a object defining a few settings. If no object is given the below default values will be used.
