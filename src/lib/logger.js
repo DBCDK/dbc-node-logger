@@ -7,8 +7,8 @@ import kafkaTransport from 'winston-kafka-transport';
 import os from 'os';
 
 const PRODUCTION = (process.env.NODE_ENV === 'production'); // eslint-disable-line no-process-env
-const KAFKA_TOPIC = process.env.KAFKA_TOPIC || null;
-const KAFKA_HOST = process.env.KAFKA_HOST || null;
+const KAFKA_TOPIC = process.env.KAFKA_TOPIC || null; // eslint-disable-line no-process-env
+const KAFKA_HOST = process.env.KAFKA_HOST || null; // eslint-disable-line no-process-env
 
 let winston = null;
 
