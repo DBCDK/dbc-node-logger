@@ -15,6 +15,22 @@ const logger = new Logger({app_name: 'My App'});
 logger.log('info', 'hello world', somedata);
 ```
 
+## Transports
+Several different transports are used by the logger:
+- Console: Sends the log to the console if the log level is set to `debug`
+- File: Logs to the file `log.log` placed in the same directory as the application is started from. This transport is silenced in production.
+- Syslog: Logs to the local syslog
+- Kafka: If both `KAFKA_TOPIC` and `KAFKA_HOST` is set (see below) the Kafka transport will be initialized and used logging everythinh below the `error` level.
+
+## Environment Varibles
+The following environment variables are defined in this module.
+
+- __KAFKA_TOPIC__
+This defines which topic in Kafka the log messages should be associated with 
+
+- __KAFKA_HOST__
+String that defines the Zookeeper connectionstring. Should be defined as `host:port`. see [winston-kafka-transport](https://www.npmjs.com/package/winston-kafka-transport)
+
 ## Documentation
 The Logger can be instantiated with a object defining a few settings. If no object is given the below default values will be used.
 
@@ -38,10 +54,10 @@ In general if the `level` or `message` parameter is undefined an `Error` will be
 The `data` parameter is optional and will only be logged if not undefined.
 
 #### Methods  
-```log(level, message, data = {})```  
-_level: string_ - The severity of the log message, see [winston-syslog](https://github.com/winstonjs/winston-syslog#log-levels) for more info  
-_message: string_ - The logmessage  
- _data:*_ - Any kind of data is accepted and will be wrapped in an object with the following format `{data: YOUR_DATA}`.
+`log(level, message, data = {})`  
+__level: string__ - The severity of the log message, see [winston-syslog](https://github.com/winstonjs/winston-syslog#log-levels) for more info  
+__message: string__ - The logmessage  
+__data: *__ - Any kind of data is accepted and will be wrapped in an object with the following format `{data: YOUR_DATA}`.
 
 `info(message, data = {})`  
 See `log()` method

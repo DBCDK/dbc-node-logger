@@ -3,10 +3,12 @@
 import Winston from 'winston';
 import expressWinston from 'express-winston';
 import {Syslog} from 'winston-syslog'; // eslint-disable-line no-unused-vars
-
+import kafkaTransport from 'winston-kafka-transport';
 import os from 'os';
 
 const PRODUCTION = (process.env.NODE_ENV === 'production'); // eslint-disable-line no-process-env
+const KAFKA_TOPIC = process.env.KAFKA_TOPIC || null;
+const KAFKA_HOST = process.env.KAFKA_HOST || null;
 
 let winston = null;
 
@@ -32,8 +34,9 @@ export function doLog(level, message, data = null) {
 
 function getTransports(config) {
   const appName = config.app_name || 'my_app';
-  return {
-    console: new Winston.transports.Console({
+
+  let transports = [
+    new Winston.transports.Console({
       silent: false,
       level: 'debug',
       timestamp: true,
@@ -44,7 +47,7 @@ function getTransports(config) {
       handleExceptions: true
     }),
 
-    file: new Winston.transports.File({
+    new Winston.transports.File({
       filename: './log.log',
       maxFiles: 10,
       maxsize: 300000000,
@@ -59,7 +62,7 @@ function getTransports(config) {
       zippedArchive: true
     }),
 
-    syslog: new Winston.transports.Syslog({
+    new Winston.transports.Syslog({
       silent: false,
       protocol: 'udp4',
       localhost: os.hostname(),
@@ -68,7 +71,20 @@ function getTransports(config) {
       timestamp: true,
       handleExceptions: true
     })
-  };
+  ];
+
+  if (KAFKA_TOPIC && KAFKA_HOST) {
+    Winston.transports.Kafka = kafkaTransport;
+    const kafka = new Winston.transports.Kafka({
+      topic: KAFKA_TOPIC,
+      level: 'error',
+      connectionString: KAFKA_HOST
+    });
+
+    transports.push(kafka);
+  }
+
+  return transports;
 }
 
 function expressLoggers() {
@@ -91,7 +107,7 @@ function expressLoggers() {
 export function configLogger(config) {
   const transports = getTransports(config);
   winston = new Winston.Logger({
-    transports: [transports.console, transports.file, transports.syslog],
+    transports: transports,
     exitOnError: false
   });
 
