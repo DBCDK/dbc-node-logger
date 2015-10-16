@@ -1,6 +1,6 @@
 {
   "name": "dbc-node-logger",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "DBC logger module that ensures logging to central DBC syslog and New Relic",
   "main": "dist/index.js",
   "scripts": {
@@ -15,7 +15,9 @@
     "reinstall": "rm -r node_modules && npm install"
   },
   "keywords": [
-    "dbc", "dbcdk", "logger"
+    "dbc",
+    "dbcdk",
+    "logger"
   ],
   "repository": {
     "type": "git",
