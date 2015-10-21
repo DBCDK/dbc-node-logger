@@ -35,7 +35,6 @@
     "express-winston": "^0.4.1",
     "webpack": "^1.12.0",
     "winston": "^1.0.1",
-    "winston-kafka-transport": "^0.1.6",
     "winston-syslog": "^1.1.2"
   },
   "devDependencies": {
