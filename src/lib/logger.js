@@ -3,12 +3,12 @@
 import Winston from 'winston';
 import expressWinston from 'express-winston';
 import {Syslog} from 'winston-syslog'; // eslint-disable-line no-unused-vars
-import kafkaTransport from 'winston-kafka-transport';
+// import kafkaTransport from 'winston-kafka-transport'; // eslint-disable-line
 import os from 'os';
 
-const PRODUCTION = (process.env.NODE_ENV === 'production'); // eslint-disable-line no-process-env
-const KAFKA_TOPIC = process.env.KAFKA_TOPIC || null; // eslint-disable-line no-process-env
-const KAFKA_HOST = process.env.KAFKA_HOST || null; // eslint-disable-line no-process-env
+const PRODUCTION = (process.env.NODE_ENV === 'production'); // eslint-disable-line
+const KAFKA_TOPIC = process.env.KAFKA_TOPIC || null; // eslint-disable-line
+const KAFKA_HOST = process.env.KAFKA_HOST || null; // eslint-disable-line
 
 let winston = null;
 
@@ -72,7 +72,7 @@ function getTransports(config) {
       handleExceptions: true
     })
   ];
-
+/*
   if (KAFKA_TOPIC && KAFKA_HOST) {
     Winston.transports.Kafka = kafkaTransport;
     const kafka = new Winston.transports.Kafka({
@@ -83,7 +83,7 @@ function getTransports(config) {
 
     transports.push(kafka);
   }
-
+*/
   return transports;
 }
 
