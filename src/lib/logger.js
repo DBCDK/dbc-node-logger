@@ -2,8 +2,8 @@
 
 import Winston from 'winston';
 import expressWinston from 'express-winston';
-import {Syslog} from 'winston-syslog'; // eslint-disable-line no-unused-vars
-// import kafkaTransport from 'winston-kafka-transport'; // eslint-disable-line
+import {Syslog} from 'winston-syslog'; // eslint-disable-line
+import kafkaTransport from 'winston-kafka-transport';
 import os from 'os';
 
 const PRODUCTION = (process.env.NODE_ENV === 'production'); // eslint-disable-line
@@ -72,7 +72,7 @@ function getTransports(config) {
       handleExceptions: true
     })
   ];
-/*
+
   if (KAFKA_TOPIC && KAFKA_HOST) {
     Winston.transports.Kafka = kafkaTransport;
     const kafka = new Winston.transports.Kafka({
@@ -83,7 +83,7 @@ function getTransports(config) {
 
     transports.push(kafka);
   }
-*/
+
   return transports;
 }
 
