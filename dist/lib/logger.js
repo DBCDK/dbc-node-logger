@@ -18,8 +18,11 @@ var _expressWinston2 = _interopRequireDefault(_expressWinston);
 
 var _winstonSyslog = require('winston-syslog');
 
-// eslint-disable-line no-unused-vars
-// import kafkaTransport from 'winston-kafka-transport'; // eslint-disable-line
+// eslint-disable-line
+
+var _winstonKafkaTransport = require('winston-kafka-transport');
+
+var _winstonKafkaTransport2 = _interopRequireDefault(_winstonKafkaTransport);
 
 var _os = require('os');
 
@@ -87,18 +90,18 @@ function getTransports(config) {
     timestamp: true,
     handleExceptions: true
   })];
-  /*
-    if (KAFKA_TOPIC && KAFKA_HOST) {
-      Winston.transports.Kafka = kafkaTransport;
-      const kafka = new Winston.transports.Kafka({
-        topic: KAFKA_TOPIC,
-        level: 'error',
-        connectionString: KAFKA_HOST
-      });
-  
-      transports.push(kafka);
-    }
-  */
+
+  if (KAFKA_TOPIC && KAFKA_HOST) {
+    _winston2['default'].transports.Kafka = _winstonKafkaTransport2['default'];
+    var kafka = new _winston2['default'].transports.Kafka({
+      topic: KAFKA_TOPIC,
+      level: 'error',
+      connectionString: KAFKA_HOST
+    });
+
+    transports.push(kafka);
+  }
+
   return transports;
 }
 
