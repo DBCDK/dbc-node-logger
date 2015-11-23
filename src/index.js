@@ -51,6 +51,12 @@ export function debug(message, data = null) {
   }
 }
 
+export function info(message, data = null) {
+  if (isInitialized) {
+    logger.doLog('info', message, data);
+  }
+}
+
 export function error(message, data = null) {
   if (isInitialized) {
     logger.doLog('error', message, data);
