@@ -95,7 +95,7 @@ function getTransports(config) {
     _winston2['default'].transports.Kafka = _winstonKafkaTransport2['default'];
     var kafka = new _winston2['default'].transports.Kafka({
       topic: KAFKA_TOPIC,
-      level: 'debug',
+      level: 'emerg',
       connectionString: KAFKA_HOST
     });
 
@@ -130,10 +130,7 @@ function configLogger(config) {
     exitOnError: false
   });
 
-  winston.setLevels(_winston2['default'].config.syslog.levels); // see level at https://github.com/winstonjs/winston-syslog#log-levels
+  winston.setLevels({ emerg: 7, alert: 6, crit: 5, error: 4, warning: 3, notice: 2, info: 1, debug: 0 }); // see level at https://github.com/winstonjs/winston-syslog#log-levels
 
-  if (PRODUCTION) {
-    winston.debug('This application is started with the PRODUCTION flag set, meaning that most logging will go to syslog.');
-  }
   return expressLoggers();
 }

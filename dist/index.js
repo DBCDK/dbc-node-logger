@@ -28,6 +28,10 @@ var logger = _interopRequireWildcard(_libLoggerJs);
 var expressLoggers = null;
 var isInitialized = false;
 
+/**
+ *
+ */
+
 var Logger = (function () {
   function Logger() {
     var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
@@ -38,6 +42,12 @@ var Logger = (function () {
     isInitialized = true;
   }
 
+  /**
+   * Logs a debug message
+   * @param {String} message
+   * @param {Object} data
+   */
+
   _createClass(Logger, [{
     key: 'log',
     value: function log(level, message) {
@@ -45,6 +55,12 @@ var Logger = (function () {
 
       logger.doLog(level, message, data);
     }
+
+    /**
+     * Logs an debug message
+     * @param {String} message
+     * @param {Object} data
+     */
   }, {
     key: 'debug',
     value: function debug(message) {
@@ -52,6 +68,12 @@ var Logger = (function () {
 
       logger.doLog('debug', message, data);
     }
+
+    /**
+     * Logs an info message
+     * @param {String} message
+     * @param {Object} data
+     */
   }, {
     key: 'info',
     value: function info(message) {
@@ -59,6 +81,12 @@ var Logger = (function () {
 
       logger.doLog('info', message, data);
     }
+
+    /**
+     * Logs a notice message
+     * @param {String} message
+     * @param {Object} data
+     */
   }, {
     key: 'notice',
     value: function notice(message) {
@@ -66,6 +94,14 @@ var Logger = (function () {
 
       logger.doLog('notice', message, data);
     }
+
+    /**
+     * @deprecated Since removal of Syslog the warning level has been deprecated
+     * in favor of the warn level
+     *
+     * @param {String} message
+     * @param {Object} data
+     */
   }, {
     key: 'warning',
     value: function warning(message) {
@@ -73,6 +109,12 @@ var Logger = (function () {
 
       logger.doLog('warning', message, data);
     }
+
+    /**
+     * Logs an error message
+     * @param {String} message
+     * @param {Object} data
+     */
   }, {
     key: 'error',
     value: function error(message) {
@@ -80,6 +122,38 @@ var Logger = (function () {
 
       logger.doLog('error', message, data);
     }
+
+    /**
+     * Logs a critical message
+     * @param {String} message
+     * @param {Object} data
+     */
+  }, {
+    key: 'crit',
+    value: function crit(message) {
+      var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+      logger.doLog('crit', message, data);
+    }
+
+    /**
+     * Logs an alert message
+     * @param {String} message
+     * @param {Object} data
+     */
+  }, {
+    key: 'alert',
+    value: function alert(message) {
+      var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+      logger.doLog('alert', message, data);
+    }
+
+    /**
+     * Returns loggers to be used as middleware in express.
+     *
+     * @return {*}
+     */
   }, {
     key: 'getExpressLoggers',
     value: function getExpressLoggers() {
@@ -100,6 +174,12 @@ function debug(message) {
   }
 }
 
+/**
+ * Logs an info message
+ * @param {String} message
+ * @param {Object} data
+ */
+
 function info(message) {
   var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
@@ -107,6 +187,12 @@ function info(message) {
     logger.doLog('info', message, data);
   }
 }
+
+/**
+ * Logs a notice message
+ * @param {String} message
+ * @param {Object} data
+ */
 
 function notice(message) {
   var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
@@ -116,6 +202,14 @@ function notice(message) {
   }
 }
 
+/**
+ * @deprecated Since removal of Syslog the warning level has been deprecated
+ * in favor of the warn level
+ *
+ * @param {String} message
+ * @param {Object} data
+ */
+
 function warning(message) {
   var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
@@ -123,6 +217,12 @@ function warning(message) {
     logger.doLog('warning', message, data);
   }
 }
+
+/**
+ * Logs an error message
+ * @param {String} message
+ * @param {Object} data
+ */
 
 function error(message) {
   var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
