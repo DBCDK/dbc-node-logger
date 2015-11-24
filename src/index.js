@@ -63,6 +63,12 @@ export function notice(message, data = null) {
   }
 }
 
+export function warning(message, data = null) {
+  if (isInitialized) {
+    logger.doLog('warning', message, data);
+  }
+}
+
 export function error(message, data = null) {
   if (isInitialized) {
     logger.doLog('error', message, data);

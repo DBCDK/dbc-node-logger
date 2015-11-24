@@ -14,6 +14,7 @@ var _createClass = (function () { function defineProperties(target, props) { for
 exports.debug = debug;
 exports.info = info;
 exports.notice = notice;
+exports.warning = warning;
 exports.error = error;
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
@@ -112,6 +113,14 @@ function notice(message) {
 
   if (isInitialized) {
     logger.doLog('notice', message, data);
+  }
+}
+
+function warning(message) {
+  var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+  if (isInitialized) {
+    logger.doLog('warning', message, data);
   }
 }
 

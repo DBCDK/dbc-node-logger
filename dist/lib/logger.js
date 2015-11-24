@@ -95,7 +95,7 @@ function getTransports(config) {
     _winston2['default'].transports.Kafka = _winstonKafkaTransport2['default'];
     var kafka = new _winston2['default'].transports.Kafka({
       topic: KAFKA_TOPIC,
-      level: 'error',
+      level: 'debug',
       connectionString: KAFKA_HOST
     });
 
