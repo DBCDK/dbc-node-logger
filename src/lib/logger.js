@@ -77,7 +77,7 @@ function getTransports(config) {
     Winston.transports.Kafka = kafkaTransport;
     const kafka = new Winston.transports.Kafka({
       topic: KAFKA_TOPIC,
-      level: 'error',
+      level: 'debug',
       connectionString: KAFKA_HOST
     });
 
