@@ -112,6 +112,6 @@ export function configLogger(config) {
   });
 
   winston.setLevels({emerg: 7, alert: 6, crit: 5, error: 4, warning: 3, notice: 2, info: 1, debug: 0}); // see level at https://github.com/winstonjs/winston-syslog#log-levels
-  
+
   return expressLoggers();
 }
