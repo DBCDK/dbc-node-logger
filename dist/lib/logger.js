@@ -16,17 +16,9 @@ var _expressWinston = require('express-winston');
 
 var _expressWinston2 = _interopRequireDefault(_expressWinston);
 
-var _winstonSyslog = require('winston-syslog');
-
-// eslint-disable-line
-
 var _winstonKafkaTransport = require('winston-kafka-transport');
 
 var _winstonKafkaTransport2 = _interopRequireDefault(_winstonKafkaTransport);
-
-var _os = require('os');
-
-var _os2 = _interopRequireDefault(_os);
 
 var PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line
 var KAFKA_TOPIC = process.env.KAFKA_TOPIC || null; // eslint-disable-line
@@ -81,14 +73,6 @@ function getTransports(config) {
     tailable: true,
     handleExceptions: true,
     zippedArchive: true
-  }), new _winston2['default'].transports.Syslog({
-    silent: false,
-    protocol: 'udp4',
-    localhost: _os2['default'].hostname(),
-    app_name: appName,
-    json: true,
-    timestamp: true,
-    handleExceptions: true
   })];
 
   if (KAFKA_TOPIC && KAFKA_HOST) {
@@ -130,7 +114,7 @@ function configLogger(config) {
     exitOnError: false
   });
 
-  winston.setLevels({ emerg: 7, alert: 6, crit: 5, error: 4, warning: 3, notice: 2, info: 1, debug: 0 }); // see level at https://github.com/winstonjs/winston-syslog#log-levels
+  winston.setLevels({ emerg: 7, alert: 6, crit: 5, error: 4, warning: 3, notice: 2, info: 1, debug: 0 });
 
   return expressLoggers();
 }
