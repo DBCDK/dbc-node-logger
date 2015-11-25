@@ -1,7 +1,7 @@
 {
   "name": "dbc-node-logger",
-  "version": "1.4.7",
-  "description": "DBC logger module that ensures logging to central DBC syslog and New Relic",
+  "version": "1.4.8",
+  "description": "DBC logger module that ensures logging to central DBC Kafka host",
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel/register src/__tests__ -R mocha-jenkins-reporter",
@@ -35,8 +35,7 @@
     "express-winston": "^0.4.1",
     "webpack": "^1.12.0",
     "winston": "^2.1.0",
-    "winston-kafka-transport": "^0.1.6",
-    "winston-syslog": "^1.1.2"
+    "winston-kafka-transport": "^0.1.6"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.0",
