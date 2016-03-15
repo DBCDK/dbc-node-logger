@@ -86,6 +86,35 @@ function expressLoggers() {
   };
 }
 
+function getRewriters() {
+  let rewriters = [];
+
+  rewriters.push(function filterOutFilebuffers (level, msg, meta) {
+    function eachRecursive(obj) {
+      for (var k in obj) {
+        if (k === 'buffer') {
+          obj[k] = 'data buffer';
+        }
+        else {
+          if (!obj.hasOwnProperty(k)) {
+            continue;
+          }
+
+          if (typeof obj[k] === 'object' && obj[k] !== null) {
+            eachRecursive(obj[k]);
+          }
+        }
+      }
+    }
+
+    eachRecursive(meta);
+
+    return meta;
+  });
+
+  return rewriters;
+}
+
 /**
  * Configures the logger and transports to be used.
  * Syslog is disabled if PRODUCTION flag is anything but true.
@@ -94,8 +123,10 @@ function expressLoggers() {
  */
 export function configLogger(config) {
   const transports = getTransports(config);
+  const rewriters = getRewriters();
   winston = new Winston.Logger({
     transports: transports,
+    rewriters: rewriters,
     exitOnError: false
   });
 
