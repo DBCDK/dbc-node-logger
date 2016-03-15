@@ -1,12 +1,13 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 exports.doLog = doLog;
 exports.configLogger = configLogger;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _winston = require('winston');
 
@@ -19,6 +20,8 @@ var _expressWinston2 = _interopRequireDefault(_expressWinston);
 var _winstonKafkaTransport = require('winston-kafka-transport');
 
 var _winstonKafkaTransport2 = _interopRequireDefault(_winstonKafkaTransport);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line
 var KAFKA_TOPIC = process.env.KAFKA_TOPIC || null; // eslint-disable-line
@@ -36,7 +39,6 @@ var winston = null;
  * null, be wrapped in an object {data: data} to ensure consistent
  * representation in our syslog.
  */
-
 function doLog(level, message) {
   var data = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
 
@@ -51,7 +53,7 @@ function doLog(level, message) {
 function getTransports(config) {
   var appName = config.app_name || 'my_app';
 
-  var transports = [new _winston2['default'].transports.Console({
+  var transports = [new _winston2.default.transports.Console({
     silent: false,
     level: 'debug',
     timestamp: true,
@@ -60,7 +62,7 @@ function getTransports(config) {
     prettyPrint: true,
     humanReadableUnhandledException: true,
     handleExceptions: true
-  }), new _winston2['default'].transports.File({
+  }), new _winston2.default.transports.File({
     filename: './log.log',
     maxFiles: 10,
     maxsize: 300000000,
@@ -76,8 +78,8 @@ function getTransports(config) {
   })];
 
   if (KAFKA_TOPIC && KAFKA_HOST) {
-    _winston2['default'].transports.Kafka = _winstonKafkaTransport2['default'];
-    var kafka = new _winston2['default'].transports.Kafka({
+    _winston2.default.transports.Kafka = _winstonKafkaTransport2.default;
+    var kafka = new _winston2.default.transports.Kafka({
       topic: KAFKA_TOPIC,
       level: 'emerg',
       connectionString: KAFKA_HOST
@@ -91,13 +93,41 @@ function getTransports(config) {
 
 function expressLoggers() {
   return {
-    logger: _expressWinston2['default'].logger({
+    logger: _expressWinston2.default.logger({
       winstonInstance: winston
     }),
-    errorLogger: _expressWinston2['default'].errorLogger({
+    errorLogger: _expressWinston2.default.errorLogger({
       winstonInstance: winston
     })
   };
+}
+
+function getRewriters() {
+  var rewriters = [];
+
+  rewriters.push(function filterOutFilebuffers(level, msg, meta) {
+    function eachRecursive(obj) {
+      for (var k in obj) {
+        if (k === 'buffer') {
+          obj[k] = 'data buffer';
+        } else {
+          if (!obj.hasOwnProperty(k)) {
+            continue;
+          }
+
+          if (_typeof(obj[k]) === 'object' && obj[k] !== null) {
+            eachRecursive(obj[k]);
+          }
+        }
+      }
+    }
+
+    eachRecursive(meta);
+
+    return meta;
+  });
+
+  return rewriters;
 }
 
 /**
@@ -106,11 +136,12 @@ function expressLoggers() {
  *
  * Express specific loggers are also initialized.
  */
-
 function configLogger(config) {
   var transports = getTransports(config);
-  winston = new _winston2['default'].Logger({
+  var rewriters = getRewriters();
+  winston = new _winston2.default.Logger({
     transports: transports,
+    rewriters: rewriters,
     exitOnError: false
   });
 

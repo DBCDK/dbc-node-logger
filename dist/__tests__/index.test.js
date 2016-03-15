@@ -5,27 +5,27 @@
  * Testing the src/index.js file
  */
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
 var _chai = require('chai');
 
-var _indexJs = require('../index.js');
+var _index = require('../index.js');
 
-var _indexJs2 = _interopRequireDefault(_indexJs);
+var _index2 = _interopRequireDefault(_index);
 
 var _sinon = require('sinon');
 
 var _sinon2 = _interopRequireDefault(_sinon);
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 describe('Test Logger class', function () {
 
-  var sandbox = undefined;
+  var sandbox = void 0;
   var logger = null;
-  var loggerMock = undefined;
+  var loggerMock = void 0;
 
   beforeEach(function () {
-    sandbox = _sinon2['default'].sandbox.create();
-    logger = new _indexJs2['default']({ app_name: 'test_app' });
+    sandbox = _sinon2.default.sandbox.create();
+    logger = new _index2.default({ app_name: 'test_app' });
     loggerMock = sandbox.mock(logger);
   });
 
@@ -35,7 +35,7 @@ describe('Test Logger class', function () {
   });
 
   it('Logger can be instatiated without a config object', function () {
-    var myLogger = new _indexJs2['default']();
+    var myLogger = new _index2.default();
     _chai.assert.isObject(myLogger, 'myLogger is an object');
   });
 
