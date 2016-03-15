@@ -4,7 +4,7 @@
   "description": "DBC logger module that ensures logging to central DBC Kafka host",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel/register src/__tests__ -R mocha-jenkins-reporter",
+    "test": "mocha --compilers js:babel-register src/__tests__ -R mocha-jenkins-reporter",
     "test:junit": "npm run test",
     "test:watch": "mocha --compilers js:babel/register src/__tests__ -w",
     "cleardist": "rm -rf ./dist",
