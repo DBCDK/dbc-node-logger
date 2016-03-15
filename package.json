@@ -1,6 +1,6 @@
 {
   "name": "dbc-node-logger",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "description": "DBC logger module that ensures logging to central DBC Kafka host",
   "main": "dist/index.js",
   "scripts": {
