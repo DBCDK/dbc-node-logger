@@ -2,7 +2,7 @@
 
 import Winston from 'winston';
 import expressWinston from 'express-winston';
-import kafkaTransport from 'winston-kafka-transport';
+import kafkaTransport from '@dbcdk/winston-kafka-transport';
 
 const PRODUCTION = (process.env.NODE_ENV === 'production'); // eslint-disable-line
 const KAFKA_TOPIC = process.env.KAFKA_TOPIC || null; // eslint-disable-line
