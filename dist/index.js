@@ -34,7 +34,7 @@ var isInitialized = false;
 
 var Logger = function () {
   function Logger() {
-    var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     _classCallCheck(this, Logger);
 
@@ -45,7 +45,7 @@ var Logger = function () {
   _createClass(Logger, [{
     key: 'log',
     value: function log(level, message) {
-      var data = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
       logger.doLog(level, message, data);
     }
@@ -59,7 +59,7 @@ var Logger = function () {
   }, {
     key: 'debug',
     value: function debug(message) {
-      var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
       logger.doLog('debug', message, data);
     }
@@ -73,7 +73,7 @@ var Logger = function () {
   }, {
     key: 'info',
     value: function info(message) {
-      var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
       logger.doLog('info', message, data);
     }
@@ -87,7 +87,7 @@ var Logger = function () {
   }, {
     key: 'notice',
     value: function notice(message) {
-      var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
       logger.doLog('notice', message, data);
     }
@@ -103,7 +103,7 @@ var Logger = function () {
   }, {
     key: 'warning',
     value: function warning(message) {
-      var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
       logger.doLog('warning', message, data);
     }
@@ -117,7 +117,7 @@ var Logger = function () {
   }, {
     key: 'error',
     value: function error(message) {
-      var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
       logger.doLog('error', message, data);
     }
@@ -131,7 +131,7 @@ var Logger = function () {
   }, {
     key: 'crit',
     value: function crit(message) {
-      var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
       logger.doLog('crit', message, data);
     }
@@ -145,7 +145,7 @@ var Logger = function () {
   }, {
     key: 'alert',
     value: function alert(message) {
-      var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
       logger.doLog('alert', message, data);
     }
@@ -175,7 +175,7 @@ var Logger = function () {
 
 exports.default = Logger;
 function debug(message) {
-  var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+  var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
   if (isInitialized) {
     logger.doLog('debug', message, data);
@@ -188,7 +188,7 @@ function debug(message) {
  * @param {Object} data
  */
 function info(message) {
-  var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+  var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
   if (isInitialized) {
     logger.doLog('info', message, data);
@@ -201,7 +201,7 @@ function info(message) {
  * @param {Object} data
  */
 function notice(message) {
-  var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+  var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
   if (isInitialized) {
     logger.doLog('notice', message, data);
@@ -216,7 +216,7 @@ function notice(message) {
  * @param {Object} data
  */
 function warning(message) {
-  var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+  var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
   if (isInitialized) {
     logger.doLog('warning', message, data);
@@ -229,7 +229,7 @@ function warning(message) {
  * @param {Object} data
  */
 function error(message) {
-  var data = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+  var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
   if (isInitialized) {
     logger.doLog('error', message, data);

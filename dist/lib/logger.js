@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 exports.doLog = doLog;
 exports.configLogger = configLogger;
@@ -17,7 +17,7 @@ var _expressWinston = require('express-winston');
 
 var _expressWinston2 = _interopRequireDefault(_expressWinston);
 
-var _winstonKafkaTransport = require('winston-kafka-transport');
+var _winstonKafkaTransport = require('@dbcdk/winston-kafka-transport');
 
 var _winstonKafkaTransport2 = _interopRequireDefault(_winstonKafkaTransport);
 
@@ -40,7 +40,7 @@ var winston = null;
  * representation in our syslog.
  */
 function doLog(level, message) {
-  var data = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
   var dataToLog = data ? { data: data } : null;
   if (!level || !message) {
