@@ -1,0 +1,8 @@
+deploy:
+  provider: npm
+  email: ux@dbc.dk
+  api_key:
+    secure: oNt3sQBnPmaVKXwIeBB3qLuPvSAs1YoSnVjrPvcuXzTKmetTRXjvWrfjNYgYQOojAWge783q6LFDssUjoeqEnNJepYhZDWyNgSo+LU9vw2WLamaIg70BUEwGlHN28PPEmjf0N6aBYHRd1eWbnqG4V79cl/KLdK59yFyESGR1HBK1KNZNUUmj1C4V0gW5J24c5RlROCAzKJiW9YZqMmAZbeoeOkHRIOKUk/L7XqdzPtPttaup6yqQLh6OxCLwZqVmufL6ZrVSjTfUA2xzThkT11em5xpXnto94ezMm74QWNJbB9IOT1zRfKGlax83bTMovcKpDxMohAhnryK1fF5+5rrPKx2ev2G35uB0rYKo+FB0JfrQfyml7+rRjAl+hy4Y5FY9JsttwX6fdGqZCIS4cpEmCcRmhXGgVdVpkQMaNlZ9OZ+hdyU3UZJVUUHAnSN72KvUGDWw9KrfA5NWu0uzuH9SJi0qmKS8/ov7jU/LJPplImXXgmqp28HnIJeTJjSBbmIsNodNYLhDMoAlJE+sEVZqxUa/xZaSH4HSc8sQHcJCHB6H4lMX3SvepxC+AW2/Qc2uIL/fuAF8iaJ+i3R6+5p2FqHLMzny5Hg8fDfrNDLqhxMvpbgKH65GnUsnqTNFCpLI+ud8fxHM/oGaZGIproKhCia526C56ZDJEDU6tMA=
+  on:
+    tags: true
+    repo: DBCDK/dbc-node-logger
