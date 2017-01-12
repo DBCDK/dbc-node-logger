@@ -1,5 +1,7 @@
 # dbc-node-logger
 
+[![Build Status](https://travis-ci.org/DBCDK/dbc-node-logger.svg?branch=master)](https://travis-ci.org/DBCDK/dbc-node-logger)
+
 Logger module intendted to be used within the DBC A/S organisation but is free for anyone to use. 
 
 ## Example
