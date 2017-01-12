@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/DBCDK/dbc-node-logger.svg?branch=master)](https://travis-ci.org/DBCDK/dbc-node-logger)
 
-Logger module intendted to be used within the DBC A/S organisation but is free for anyone to use. 
+Logger module intendted to be used within the DBC A/S organisation but is free for anyone to use.
 
 ## Example
 Implementatin exmaple:
@@ -33,14 +33,6 @@ If set to `1` (`PRETTY_LOG=1`) the logstatements will be formatted with indentat
 The Logger can be instantiated with a object defining a few settings. If no object is given the below default values will be used.
 
 If the production flag is set everything goes to Syslog as JSON otherwise it goes to the console prettyprinted. Highest level when logging to console is `error` while on Syslog it is `emerg`.  
- 
-### Instance parameters
-__app_name (string, optional)__  
-defaults to my_app  
-The app_name field is used when logging to Syslog where the application will appear wth name given in app_name. If no app_name is given my_app will be used as fallback.
-
-__handleException (boolean, optional)__  
-defaults to false see [Handling Uncaught Exceptions with winston](https://www.npmjs.com/package/winston#handling-uncaught-exceptions-with-winston)
 
 ### Methods & Parameters
 
