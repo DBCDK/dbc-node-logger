@@ -74,11 +74,11 @@ describe('Test logger methods', () => {
       const method = level.toLowerCase();
       Logger.log[method](logMsg);
       let args = null;
-      try{
+      try {
         args = JSON.parse(spy.args);
       }
-      catch(e){
-        console.error('Could not parse args', spy.args, level, process.env.LOG_LEVEL);
+      catch (e) {
+        console.error('Could not parse args', spy.args, level, process.env.LOG_LEVEL); // eslint-disable-line no-console
       }
 
       assert.equal(args.msg, logMsg);
