@@ -1,6 +1,4 @@
 # dbc-node-logger
-[![David](https://img.shields.io/david/DBCDK/dbc-node-logger.svg?style=flat-square)](https://david-dm.org/DBCDK/dbc-node-logger#info=dependencies)
-[![David](https://img.shields.io/david/dev/DBCDK/dbc-node-logger.svg?style=flat-square)](https://david-dm.org/DBCDK/dbc-node-logger#info=devDependencies)
 
 Logger module intendted to be used within the DBC A/S organisation but is free for anyone to use. 
 
