@@ -1,11 +1,10 @@
-'use strict';
-let babel = require('babel');
+const babel = require('babel-core');
 
-module.exports = function() {
+module.exports = function(wallaby) {
   return {
     files: [
-      'src/*.js',
-      'src/lib/*.js',
+      'package.json',
+      'src/**/*.js',
       '!src/**/*.test.js'
     ],
 
@@ -13,15 +12,19 @@ module.exports = function() {
       'src/**/*.test.js'
     ],
 
-    preprocessors: {
-      '**/*.js': [
-        file => babel.transform(file.content, {sourceMaps: true})
-      ]
+    compilers: {
+      '**/*.js': wallaby.compilers.babel({
+        babel: babel
+      })
     },
 
     env: {
       type: 'node',
-      runner: 'node'
+      runner: 'node',
+      params: {
+        env: // @see https://wallabyjs.com/docs/config/runner.html
+        'LOG_LEVEL=TRACE;'
+      }
     },
 
     testFramework: 'mocha@2.1.0'

@@ -2,35 +2,32 @@
 [![David](https://img.shields.io/david/DBCDK/dbc-node-logger.svg?style=flat-square)](https://david-dm.org/DBCDK/dbc-node-logger#info=dependencies)
 [![David](https://img.shields.io/david/dev/DBCDK/dbc-node-logger.svg?style=flat-square)](https://david-dm.org/DBCDK/dbc-node-logger#info=devDependencies)
 
-Logger module intendted to be used within the DBC A/S organisation. If, however, anyone find it relevant feel free to use the module.
-The module is based on the [Winston module](https://www.npmjs.com/package/winston) which is used for basic logging but it also provides logging for expess using [express-winston](https://www.npmjs.com/package/express-winston) and logging to the New Relic service. 
+Logger module intendted to be used within the DBC A/S organisation but is free for anyone to use. 
 
 ## Example
 Implementatin exmaple:
 
 ```javascript
-import Logger from 'dbc-node-logger';
+import {log} from 'dbc-node-logger';
 
-const logger = new Logger({app_name: 'My App'});
-logger.log('info', 'hello world', somedata);
+log.log('info', 'hello world', {additional: 'data'});
+
+// OR
+
+log.info('hello world', {additional: 'data'});
+log.error('hello world', {additional: 'data'});
+// ETC...
 ```
-
-## Transports
-Several different transports are used by the logger:
-- Console: Sends the log to the console if the log level is set to `debug`
-- File: Logs to the file `log.log` placed in the same directory as the application is started from. This transport is silenced in production.
-- Syslog: Logs to the local syslog
-- Kafka: If both `KAFKA_TOPIC` and `KAFKA_HOST` is set (see below) the Kafka transport will be initialized and used logging everythinh below the `error` level.
 
 ## Environment Varibles
 The following environment variables are defined in this module.
 
-- __KAFKA_TOPIC__  
-This defines which topic in Kafka the log messages should be associated with 
+- __LOG_LEVEL__ - defaults to 'INFO'   
+Defines the severity level spanning from `OFF` (0) to `TRACE` (5). The following levels are available:
+`OFF`, `ERROR`, `WARN` (or `WARNING`), `INFO`, `DEBUG`, `TRACE`. 
 
-- __KAFKA_HOST__  
-String that defines the Zookeeper connectionstring. Should be defined as `host:port`.  
-see [winston-kafka-transport](https://www.npmjs.com/package/winston-kafka-transport)
+- __PRETTY_LOG__ - defaults to '0'
+If set to `1` (`PRETTY_LOG=1`) the logstatements will be formatted with indentation and linebreaks. Otherwise each statement will kept as a singleliner.
 
 ## Documentation
 The Logger can be instantiated with a object defining a few settings. If no object is given the below default values will be used.

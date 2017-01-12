@@ -1,105 +1,89 @@
-'use strict';
-
 /**
  * @file
  * Testing the src/index.js file
  */
 
 import {assert} from 'chai';
-import Logger from '../index.js';
+import * as Logger from '../index.js';
 import sinon from 'sinon';
 
-describe('Test Logger class', () => {
-
+describe('Test logger methods', () => {
   let sandbox;
-  let logger = null;
-  let loggerMock;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    logger = new Logger({app_name: 'test_app'});
-    loggerMock = sandbox.mock(logger);
   });
 
   afterEach(() => {
-    logger = null;
     sandbox.restore();
   });
 
-  it('Logger can be instatiated without a config object', () => {
-    const myLogger = new Logger();
-    assert.isObject(myLogger, 'myLogger is an object');
+  it('Should throw Error when setInfo is called withut any args', () => {
+    assert.throws(Logger.setInfo, Error);
   });
 
-  it('Ensure .log method is defined', () => {
-    assert.isDefined(logger.log, '.log method is defined');
+  it('Should throw Error when setInfo is called with array args', () => {
+    const func = () => {
+      Logger.setInfo([]);
+    };
+
+    assert.throws(func, Error);
   });
 
-  it('Test .log method', () => {
-    const expect = loggerMock.expects('log');
-    logger.log('a', 'b');
-    assert.isTrue(expect.calledOnce);
+  it('Should throw Error when setInfo is called with non-object args', () => {
+    const func = () => {
+      Logger.setInfo('string');
+    };
+
+    assert.throws(func, Error);
   });
 
-  it('Ensure .debug method is defined', () => {
-    assert.isDefined(logger.debug, '.debug method is defined');
+  it('Should not throw when given an object as argument', () => {
+    const func = () => {
+      Logger.setInfo({test: 'hest'});
+    };
+
+    assert.doesNotThrow(func, Error);
   });
 
-  it('Test .debug method', () => {
-    const expect = loggerMock.expects('debug');
-    logger.debug('message');
-    assert.isTrue(expect.calledOnce);
+  it('Should set info field when argument is accepted', () => {
+    Logger.setInfo({test: 'hest'});
+    const spy = sandbox.spy(console, 'log');
+    Logger.log.log('info', 'test message');
+    assert.isTrue(spy.args.toString().includes('"test":"hest"'), 'Values set in setInfo method is present in log output');
   });
 
-  it('Ensure .info method is defined', () => {
-    assert.isDefined(logger.info, '.info method is defined');
+  it('Should log a message on the INFO level', () => {
+    const spy = sandbox.spy(console, 'log');
+
+    const logMsg = 'this is a log message ';
+    const level = 'INFO';
+    Logger.log.log('info', logMsg);
+    const args = JSON.parse(spy.args);
+
+    assert.equal(args.msg, logMsg);
+    assert.equal(args.level, level);
   });
 
-  it('Test .info method', () => {
-    const expect = loggerMock.expects('info');
-    logger.info('message');
-    assert.isTrue(expect.calledOnce);
-  });
+  it('Should log a message on each of the levels specified', () => {
+    const levels = ['INFO', 'WARN', 'ERROR', 'DEBUG', 'TRACE'];
 
-  it('Ensure .notice method is defined', () => {
-    assert.isDefined(logger.notice, '.notice method is defined');
-  });
+    levels.forEach((level) => {
+      const spy = sandbox.spy(console, 'log');
+      const logMsg = `this is an ${level} messge`;
+      const method = level.toLowerCase();
+      Logger.log[method](logMsg);
+      let args = null;
+      try{
+        args = JSON.parse(spy.args);
+      }
+      catch(e){
+        console.error('Could not parse args', spy.args, level, process.env.LOG_LEVEL);
+      }
 
-  it('Test .notice method', () => {
-    const expect = loggerMock.expects('notice');
-    logger.notice('message');
-    assert.isTrue(expect.calledOnce);
-  });
-
-  it('Ensure .warning method is defined', () => {
-    assert.isDefined(logger.warning, '.warning method is defined');
-  });
-
-  it('Test .warning method', () => {
-    const expect = loggerMock.expects('warning');
-    logger.warning('message');
-    assert.isTrue(expect.calledOnce);
-  });
-
-  it('Ensure .error method is defined', () => {
-    assert.isDefined(logger.error, '.error method is defined');
-  });
-
-  it('Test .error method', () => {
-    const expect = loggerMock.expects('error');
-    logger.error('message');
-    assert.isTrue(expect.calledOnce);
-  });
-
-  it('Ensure .getExpressLoggers method is defined', () => {
-    assert.isDefined(logger.getExpressLoggers, '.getExpressLoggers method is defined');
-  });
-
-  it('Test .getExpressLogers method', () => {
-    const expressLoggers = logger.getExpressLoggers();
-    assert.isObject(expressLoggers, 'Got object as expected');
-
-    assert.isFunction(expressLoggers.logger, 'logger is function');
-    assert.isFunction(expressLoggers.errorLogger, 'errorLogger is function');
+      assert.equal(args.msg, logMsg);
+      assert.equal(args.level, level, `Log statement with ${level} was found`);
+      sandbox.restore();
+    });
   });
 });

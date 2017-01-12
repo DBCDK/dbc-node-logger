@@ -22,3 +22,9 @@ report.xml
 npm-debug.log
 log.log
 dump.rdb
+
+# ============
+# YARN
+# ============
+yarn-error.log
+yarn.lock
