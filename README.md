@@ -30,9 +30,7 @@ Defines the severity level spanning from `OFF` (0) to `TRACE` (5). The following
 If set to `1` (`PRETTY_LOG=1`) the logstatements will be formatted with indentation and linebreaks. Otherwise each statement will kept as a singleliner.
 
 ## Documentation
-The Logger can be instantiated with a object defining a few settings. If no object is given the below default values will be used.
-
-If the production flag is set everything goes to Syslog as JSON otherwise it goes to the console prettyprinted. Highest level when logging to console is `error` while on Syslog it is `emerg`.  
+The Logger can be instantiated with a object defining a few settings. If no object is given the below default values will be used.  
 
 ### Methods & Parameters
 
