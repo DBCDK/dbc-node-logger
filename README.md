@@ -6,6 +6,8 @@
 [![bitHound Dev Dependencies](https://www.bithound.io/github/DBCDK/dbc-node-logger/badges/devDependencies.svg)](https://www.bithound.io/github/DBCDK/dbc-node-logger/master/dependencies/npm)
 [![bitHound Code](https://www.bithound.io/github/DBCDK/dbc-node-logger/badges/code.svg)](https://www.bithound.io/github/DBCDK/dbc-node-logger)
 
+__Please beware that this is version 2+ which is completely incompatible with version 1.x which has been branched to the [version-1.x branch](https://github.com/DBCDK/dbc-node-logger/tree/version-1.x)__   
+
 Logger module intendted to be used within the DBC A/S organisation but is free for anyone to use.
 
 ## Example
