@@ -12,9 +12,9 @@ env:
   - TEST_SUITE=lint
   - TEST_SUITE=test
 script: npm run $TEST_SUITE
-before_deploy:
-  - npm run build
+before_deploy: npm run build
 deploy:
+  skip_cleanup: true
   provider: npm
   email: ux@dbc.dk
   api_key:
