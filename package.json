@@ -1,6 +1,6 @@
 {
   "name": "dbc-node-logger",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "DBC logger module made for use in projects based on nodejs and JavaScript at DBC",
   "main": "lib/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "clearlib": "rm -rf ./lib",
     "lint": "eslint ./src",
     "test": "LOG_LEVEL=TRACE mocha --compilers js:babel-register src/__tests__",
-    "test:watch": "mocha --compilers js:babel/register src/__tests__ -w"
+    "test:watch": "LOG_LEVEL=TRACE mocha --compilers js:babel/register src/__tests__ -w"
   },
   "keywords": [
     "dbc",
