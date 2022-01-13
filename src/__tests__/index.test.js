@@ -61,7 +61,7 @@ describe('Test logger methods', () => {
     Logger.log.log('info', logMsg);
     const args = JSON.parse(spy.args);
 
-    assert.equal(args.msg, logMsg);
+    assert.equal(args.message, logMsg);
     assert.equal(args.level, level);
   });
 
@@ -81,7 +81,7 @@ describe('Test logger methods', () => {
         console.error('Could not parse args', spy.args, level, process.env.LOG_LEVEL); // eslint-disable-line no-console
       }
 
-      assert.equal(args.msg, logMsg);
+      assert.equal(args.message, logMsg);
       assert.equal(args.level, level, `Log statement with ${level} was found`);
       sandbox.restore();
     });

@@ -80,7 +80,7 @@ function doLog(level, msg, args = {}) {
   }
 
   if (msg) {
-    blob.msg = msg;
+    blob.message = msg;
   }
 
   console.log(JSON.stringify(Object.assign(blob, args), null, PRETTY_PRINT)); // eslint-disable-line no-console
