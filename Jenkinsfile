@@ -20,7 +20,6 @@ pipeline {
                     npm run build
                     npm run test
                 """
-                junit 'junit.xml'
             }
         }
         stage('pre-publish') {
