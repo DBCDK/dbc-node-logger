@@ -1,10 +1,6 @@
 # dbc-node-logger
 
 [![Build Status](https://travis-ci.org/DBCDK/dbc-node-logger.svg?branch=master)](https://travis-ci.org/DBCDK/dbc-node-logger)
-[![bitHound Overall Score](https://www.bithound.io/github/DBCDK/dbc-node-logger/badges/score.svg)](https://www.bithound.io/github/DBCDK/dbc-node-logger)
-[![bitHound Dependencies](https://www.bithound.io/github/DBCDK/dbc-node-logger/badges/dependencies.svg)](https://www.bithound.io/github/DBCDK/dbc-node-logger/master/dependencies/npm)
-[![bitHound Dev Dependencies](https://www.bithound.io/github/DBCDK/dbc-node-logger/badges/devDependencies.svg)](https://www.bithound.io/github/DBCDK/dbc-node-logger/master/dependencies/npm)
-[![bitHound Code](https://www.bithound.io/github/DBCDK/dbc-node-logger/badges/code.svg)](https://www.bithound.io/github/DBCDK/dbc-node-logger)
 
 __Please beware that this is version 2+ which is completely incompatible with version 1.x which has been branched to the [version-1.x branch](https://github.com/DBCDK/dbc-node-logger/tree/version-1.x)__   
 
