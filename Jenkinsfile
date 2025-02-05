@@ -1,6 +1,11 @@
 def ownerSlack = "fe-drift"
 
 pipeline {
+    triggers {
+        upstream(
+        upstreamProjects: env.BRANCH_NAME == "master" ? "Docker-base-node-bump-trigger" : ""
+        )
+    }
     environment {
         NPM_TOKEN  = credentials('npm-token')
     }

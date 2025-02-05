@@ -9,7 +9,8 @@
     "clearlib": "rm -rf ./lib",
     "lint": "eslint ./src",
     "test": "LOG_LEVEL=TRACE mocha --compilers js:babel-register src/__tests__",
-    "test:watch": "LOG_LEVEL=TRACE mocha --compilers js:babel/register src/__tests__ -w"
+    "test:watch": "LOG_LEVEL=TRACE mocha --compilers js:babel/register src/__tests__ -w",
+    "postinstall": "npx --yes @dbcdk/npm-tools@latest verify latest"
   },
   "keywords": [
     "dbc",
