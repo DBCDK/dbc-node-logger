@@ -68,3 +68,40 @@ See `log()` method
 
 `log.debug(message, data = {})`  
 See `log()` method
+
+## Types
+
+#### TypeScript project
+
+import it as usual and the types apply:
+
+```TypeScript
+import { log, setInfo, getCurrentLogLevel, type LogLevel } from "dbc-node-logger";
+
+log.info("started", { port: 3000 });
+const level: LogLevel = getCurrentLogLevel();
+```
+
+#### JavaScript project
+
+nothing changes at runtime, since require/import still load lib/index.js. Editors like VS Code use the types for autocomplete and hover docs automatically.
+
+```JavaScript
+const { log } = require("dbc-node-logger");
+log.info("started", { port: 3000 }); // autocomplete + signature hints
+```
+
+A JS project can also opt in to real type checking:
+
+- Per file: add // @ts-check at the top.
+- Whole project: set "checkJs": true in jsconfig.json/tsconfig.json.
+
+JS projects can use the exported types through JSDoc:
+
+```JavaScript
+/** @type {import("dbc-node-logger").LogLevel} */
+const level = "info";
+
+/** @param {import("dbc-node-logger").Logger} logger */
+function doWork(logger) { logger.debug("working"); }
+```
