@@ -3,6 +3,7 @@
   "version": "2.0.13",
   "description": "DBC logger module made for use in projects based on nodejs and JavaScript at DBC",
   "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "build": "npm run clearlib && babel src -d lib --ignore **/*.test.js",
     "build:dev": "npm run clearlib && babel src -d lib --watch --ignore **/*.test.js",
